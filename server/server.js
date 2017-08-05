@@ -18,12 +18,27 @@ console.log('process.env.PORT', process.env.PORT);
 console.log('process.env.MONGO_URL', process.env.MONGO_URL);
 
 //------------------------------------------------------------------------------
+// MONGO CONNECTION
+//------------------------------------------------------------------------------
+const MONGO_URL = process.env.MONGO_URL;
+mongoose.connect(MONGO_URL);
+mongoose.Promise = global.Promise;
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:')); // eslint-disable-line
+db.once('open', console.log.bind(console, `Database connected to ${MONGO_URL}`)); // eslint-disable-line
+
+// Populate DB
+initDB();
+
+//------------------------------------------------------------------------------
 // INIT EXPRESS SERVER
 //------------------------------------------------------------------------------
 // Initialize Express server. Port is set by Heroku when the app is deployed or
 // when running locally using the 'heroku local' command.
 const server = express();
-server.set('port', (process.env.PORT || 3001));
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3001;
+server.set('port', PORT);
 
 //------------------------------------------------------------------------------
 // MIDDLEWARES
@@ -33,25 +48,10 @@ server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
 //------------------------------------------------------------------------------
-// MONGO CONNECTION
-//------------------------------------------------------------------------------
-const MONGO_URL = process.env.MONGO_URL;
-mongoose.connect(MONGO_URL);
-mongoose.Promise = global.Promise;
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', console.log.bind(console, `Database connected to ${MONGO_URL}`));
-
-// Populate DB
-initDB();
-
-//------------------------------------------------------------------------------
 // ENABLE CORS ON DEV MODE
 //------------------------------------------------------------------------------
-// Enable the server to receive requests from the React app when running locally.
-const isNotProduction = process.env.NODE_ENV !== 'production';
-if (isNotProduction) {
+if (process.env.NODE_ENV !== 'production') {
+  // Enable the server to receive requests from the React app when running locally.
   server.use('*', cors({ origin: 'http://localhost:3000' }));
 }
 
