@@ -1,42 +1,3 @@
-import mongoose from 'mongoose';
-
-const schema = mongoose.Schema({
-  createdAt: Date,
-  services: Object, // The provider with which the user authenticated (facebook, twitter, etc.).
-  profile: {
-    name: String,
-    avatar: String,
-    gender: String,
-  },
-  authProvider: String,
-});
-
-schema.statics.findOrCreate = function findOrCreate(profile, cb) {
-  console.log('####profile');
-  console.log(profile);
-  this.findOne({ 'services.id': profile.id })
-    .then((author) => {
-      if (author) {
-        console.log('author already exists');
-      } else {
-        new this({
-          createdAt: new Date(),
-          services: profile,
-          profile: {
-            name: profile.displayName,
-            avatar: profile.profileUrl,
-            gender: profile.gender,
-          },
-        }).save(cb);
-      }
-    })
-    .catch(() => { console.log('something went wrong'); });
-};
-
-const Author = mongoose.model('Author', schema);
-
-export default Author;
-
 /*
 fbProfile example:
 
@@ -77,7 +38,7 @@ provider: 'facebook',
 */
 
 
-/* import mongoose from 'mongoose';
+import mongoose from 'mongoose';
 
 const schema = mongoose.Schema({
   firstName: String,
@@ -86,4 +47,4 @@ const schema = mongoose.Schema({
 
 const Author = mongoose.model('Author', schema);
 
-export default Author; */
+export default Author;

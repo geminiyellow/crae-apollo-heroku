@@ -7,7 +7,7 @@ import path from 'path';
 import cors from 'cors';
 import session from 'express-session';
 import uuid from 'node-uuid';
-import { Author } from './src/models';
+import { User } from './src/models';
 import schema from './src/schema';
 import resolvers from './src/resolvers';
 import initDB from './src/init-db';
@@ -55,7 +55,7 @@ const fbOptions = {
 };
 const fbCallback = (accessToken, refreshToken, profile, done) => {
   console.log(accessToken, refreshToken, profile);
-  Author.findOrCreate(profile, (err, user) => {
+  User.findOrCreate(profile, (err, user) => {
     console.log('callback', err, user);
     if (err) { return done(err); }
     return done(null, user);
@@ -75,12 +75,12 @@ passport.use(new FacebookStrategy(fbOptions, fbCallback));
 // and deserialized.
 passport.serializeUser((user, done) => {
   console.log('serializeUser', user);
-  done(null, user.id);
+  done(null, user._id);
 });
 
 passport.deserializeUser((_id, done) => {
   console.log('deserializeUser', _id);
-  Author.findOne({ _id })
+  User.findOne({ _id })
     .then(user => done(null, user))
     .catch(err => done(err, null));
 });

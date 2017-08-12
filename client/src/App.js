@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-// import Authors from './components/Authors';
-// import AuthorAndPosts from './components/AuthorAndPosts';
+import Authors from './components/Authors';
+import AuthorAndPosts from './components/AuthorAndPosts';
 
 class App extends Component {
   // See ES6 Classes section at: https://facebook.github.io/react/docs/reusable-components.html
@@ -29,7 +29,7 @@ class App extends Component {
       <div className="App">
         <h3>CRAE-Apollo-Heroku</h3>
         <a href="http://localhost:3001/auth/facebook">Continue with Facebook</a>
-        {/* <Authors />
+        <Authors />
         <h3>{'Enter author\'s name to get his/her posts:'}</h3>
         <form>
           <input
@@ -57,7 +57,7 @@ class App extends Component {
           rel="noopener noreferrer"
         >
           https://github.com/fede-rodes/crae-apollo-heroku/tree/mongo
-        </a> */}
+        </a>
       </div>
     );
   }

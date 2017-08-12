@@ -11,6 +11,7 @@ const clearAll = async () => {
 // Populate DB.
 const fixtures = () => {
   casual.seed(11);
+  console.log('!!!!!!!! FIXTURES !!!!!!');
 
   _.times(10, () => (
     new Author({
