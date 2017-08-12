@@ -78,11 +78,11 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
-  console.log('deserializeUser', id);
-  /* DB.Users.get(id).then( (user, err) => {
-    return done(err, user);
-  }); */
+passport.deserializeUser((_id, done) => {
+  console.log('deserializeUser', _id);
+  Author.findOne({ _id })
+    .then(user => done(null, user))
+    .catch(err => done(err, null));
 });
 
 //------------------------------------------------------------------------------
