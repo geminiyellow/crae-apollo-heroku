@@ -6,6 +6,12 @@ Please, read the following articles to understand the new code:
 2. https://caveofcode.com/2016/10/apollo-server-using-the-graphql-schema-language/
 3. https://caveofcode.com/2016/11/the-connector-and-model-layer-in-your-graphql-apollo-server/
 
+4. https://dev-blog.apollodata.com/a-guide-to-authentication-in-graphql-e002a4039d1
+5. https://dev-blog.apollodata.com/auth-in-graphql-part-2-c6441bcc4302
+6. http://passportjs.org/docs/facebook
+7. https://github.com/jaredhanson/passport-facebook
+8. https://github.com/passport/express-4.x-facebook-example/blob/master/server.js
+
 Here you can find the mongo-branch-app deployed to heroku: https://crae-apollo-mongo-heroku.herokuapp.com/
 
 ### Getting started, run the app locally in dev mode
