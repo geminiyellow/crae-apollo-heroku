@@ -61,3 +61,7 @@ heroku open
 
 ### Last comments
 Be aware that, sometimes, you need to refresh the page after you deploy some changes; there must be some caching problem somewhere!
+
+
+# TODO
+1. Add react router

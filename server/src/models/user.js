@@ -31,7 +31,7 @@ schema.statics.findOrCreate = function findOrCreate(profile, cb) {
         }).save(cb);
       }
     })
-    .catch(() => { console.log('something went wrong'); });
+    .catch(() => { cb('something went wrong'); });
 };
 
 const User = mongoose.model('User', schema);

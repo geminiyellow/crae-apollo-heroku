@@ -1,5 +1,6 @@
 import { graphqlExpress, graphiqlExpress } from 'graphql-server-express';
 import { makeExecutableSchema } from 'graphql-tools';
+import { graphql } from 'graphql';
 import bodyParser from 'body-parser';
 import express from 'express';
 import mongoose from 'mongoose';
@@ -158,6 +159,14 @@ server.use(
   // bodyParser.json(), // middleware: parses incoming requests into JSON format.
   graphqlExpress({ schema: executableSchema })
 );
+
+// Pass user as a context
+server.post('/graphql', (req, res) => {
+  graphql(schema, req.body, { user: req.user })
+  .then((data) => {
+    res.send(JSON.stringify(data));
+  });
+});
 
 //------------------------------------------------------------------------------
 // GRAPHIQL ENDPOINT
